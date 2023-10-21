@@ -1,13 +1,26 @@
 extends Area2D
-#signal hit
+signal hit
 
-@export var speed = 500
+@export var speed = 400
+
+var overlapping_objects = []
 var screen_size
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	#hide()
+	hide()
+	
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
+	
+func _on_body_entered(body):
+	overlapping_objects.append(body)
+	
+func _on_body_exited(body):
+	overlapping_objects.erase(body)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,6 +34,8 @@ func _process(delta):
 		velocity.y += 1
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1
+	if Input.is_action_just_pressed("player_action"):
+		hit.emit(overlapping_objects)
 	
 	if(velocity.length() > 0):
 		velocity = velocity.normalized() * speed

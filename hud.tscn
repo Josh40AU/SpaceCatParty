@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk148vld535qk"]
+
+[ext_resource type="Script" path="res://HUD.gd" id="1_5kmoe"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_5kmoe")
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="."]
+offset_left = 191.0
+offset_top = 205.0
+offset_right = 952.0
+offset_bottom = 387.0
+theme_override_font_sizes/font_size = 64
+text = "Hit the Bugs with 'Space'
+To Clear them out!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 465.0
+offset_top = 448.0
+offset_right = 623.0
+offset_bottom = 544.0
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]

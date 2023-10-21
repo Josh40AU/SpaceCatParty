@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsurco1hgjaay"]
+
+[ext_resource type="Texture2D" uid="uid://d1rovb58apv74" path="res://art/Bug-walk-1.png" id="1_23ncw"]
+[ext_resource type="Script" path="res://bug.gd" id="1_pkrnr"]
+[ext_resource type="Texture2D" uid="uid://ck0snxu0rd67g" path="res://art/Bug-walk-2.png" id="2_4khyt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3f4q1"]
+radius = 38.71
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mif26"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_23ncw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_4khyt")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[node name="Bug" type="RigidBody2D" groups=["bugs"]]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_pkrnr")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3f4q1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mif26")
+animation = &"walk"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

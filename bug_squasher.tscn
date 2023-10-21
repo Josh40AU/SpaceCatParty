@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://dx41odpxhv77s"]
+
+[ext_resource type="PackedScene" uid="uid://bj0yc0ekkm62i" path="res://player.tscn" id="1_csp1f"]
+[ext_resource type="Script" path="res://bug_squasher.gd" id="1_u2k1x"]
+[ext_resource type="PackedScene" uid="uid://dsurco1hgjaay" path="res://bug.tscn" id="2_0fijt"]
+[ext_resource type="PackedScene" uid="uid://dk148vld535qk" path="res://hud.tscn" id="2_2im1j"]
+
+[sub_resource type="Curve2D" id="Curve2D_awtil"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1, -2, 0, 0, 0, 0, 1153, -1, 0, 0, 0, 0, 1152, 647, 0, 0, 0, 0, -2, 649, 0, 0, 0, 0, -1, -2)
+}
+point_count = 5
+
+[node name="BugSquasher" type="Node"]
+script = ExtResource("1_u2k1x")
+mob_scene = ExtResource("2_0fijt")
+
+[node name="Player" parent="." instance=ExtResource("1_csp1f")]
+
+[node name="BugTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(240, 450)
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_awtil")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(-1, -2)
+rotation = 0.000866551
+
+[node name="EndTimer" type="Timer" parent="."]
+wait_time = 12.0
+one_shot = true
+
+[node name="HUD" parent="." instance=ExtResource("2_2im1j")]
+
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="BugTimer" to="." method="_on_bug_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
