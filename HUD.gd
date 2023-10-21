@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal start_game
+signal end_game
 
 func show_message(text):
 	$Message.text = text
@@ -39,3 +40,7 @@ func _on_start_button_pressed():
 	$StartButton.hide()
 	start_game.emit()
 	$Message.hide()
+
+
+func _on_end_button_pressed():
+	end_game.emit()

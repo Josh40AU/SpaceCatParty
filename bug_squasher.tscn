@@ -49,4 +49,5 @@ volume_db = 1.0
 [connection signal="timeout" from="BugTimer" to="." method="_on_bug_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]
+[connection signal="end_game" from="HUD" to="." method="_on_hud_end_game"]
 [connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]

@@ -1,4 +1,5 @@
 extends Node
+signal game_complete
 
 @export var mob_scene: PackedScene
 var score
@@ -68,3 +69,7 @@ func player_hit(bodies):
 
 func _on_hud_start_game():
 	new_game()
+
+
+func _on_hud_end_game():
+	game_complete.emit()
