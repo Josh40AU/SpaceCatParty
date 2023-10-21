@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dsurco1hgjaay"]
 
-[ext_resource type="Texture2D" uid="uid://d1rovb58apv74" path="res://art/Bug-walk-1.png" id="1_23ncw"]
 [ext_resource type="Script" path="res://bug.gd" id="1_pkrnr"]
-[ext_resource type="Texture2D" uid="uid://ck0snxu0rd67g" path="res://art/Bug-walk-2.png" id="2_4khyt"]
+[ext_resource type="Texture2D" uid="uid://d1rovb58apv74" path="res://assets/art/Bug-walk-1.png" id="2_10hg7"]
+[ext_resource type="Texture2D" uid="uid://ck0snxu0rd67g" path="res://assets/art/Bug-walk-2.png" id="3_v8wol"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3f4q1"]
 radius = 38.71
@@ -11,10 +11,10 @@ radius = 38.71
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_23ncw")
+"texture": ExtResource("2_10hg7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_4khyt")
+"texture": ExtResource("3_v8wol")
 }],
 "loop": true,
 "name": &"walk",

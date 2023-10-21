@@ -54,11 +54,16 @@ func _on_bug_timer_timeout():
 	add_child(mob)
 
 func _on_player_hit(bodies):
-	if !$BugTimer.is_stopped():
-		for body in bodies:
-			score += 1
-			$HUD.update_score(score)
-			remove_child(body)
+	if !$BugTimer.is_stopped() && bodies.size() > 0:
+		player_hit(bodies)
+		
+			
+func player_hit(bodies):
+	$KeyboardSoundEffect.play()
+	for body in bodies:
+		score += 1
+		$HUD.update_score(score)
+		remove_child(body)
 
 
 func _on_hud_start_game():

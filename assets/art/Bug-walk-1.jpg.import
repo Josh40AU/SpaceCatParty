@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://art/Bug-walk-1.jpg"
+source_file="res://assets/art/Bug-walk-1.jpg"
 dest_files=["res://.godot/imported/Bug-walk-1.jpg-88ea0bb9aa3f7b4e94a9f1216d51a091.ctex"]
 
 [params]
