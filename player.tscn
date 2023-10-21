@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bj0yc0ekkm62i"]
+
+[ext_resource type="Texture2D" uid="uid://b2w42hcpe6m75" path="res://art/cat-walk-1.png" id="1_o801f"]
+[ext_resource type="Script" path="res://player.gd" id="1_rqydf"]
+[ext_resource type="Texture2D" uid="uid://cm2o14jrhcf67" path="res://art/cat-walk-2.png" id="2_1mudl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rl0cs"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_o801f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1mudl")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i0qtg"]
+radius = 48.28
+height = 182.69
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_rqydf")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_rl0cs")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_i0qtg")
