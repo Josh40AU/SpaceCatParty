@@ -8,11 +8,11 @@ script = ExtResource("1_he5jr")
 bug_squasher_scene = ExtResource("2_xipxd")
 
 [node name="bug_squash_start" type="Button" parent="."]
-offset_left = 374.0
-offset_top = 248.0
-offset_right = 663.0
-offset_bottom = 344.0
+offset_left = 385.0
+offset_top = 300.0
+offset_right = 819.0
+offset_bottom = 396.0
 theme_override_font_sizes/font_size = 64
-text = "Press me"
+text = "Bug Squasher"
 
 [connection signal="pressed" from="bug_squash_start" to="." method="_on_button_pressed"]
