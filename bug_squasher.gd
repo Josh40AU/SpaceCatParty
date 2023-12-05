@@ -45,10 +45,10 @@ func _on_bug_timer_timeout():
 
 	# Add some randomness to the direction.
 	direction += randf_range(-PI / 4, PI / 4)
-	mob.rotation = direction
+	mob.rotation = direction + ( PI / 2)
 
 	# Choose the velocity for the mob.
-	var velocity = Vector2(randf_range(150.0, 250.0), 0.0)
+	var velocity = Vector2(randf_range(150.0, 350.0), 0.0)
 	mob.linear_velocity = velocity.rotated(direction)
 
 	# Spawn the mob by adding it to the Main scene.
@@ -60,7 +60,7 @@ func _on_player_hit(bodies):
 		
 			
 func player_hit(bodies):
-	$KeyboardSoundEffect.play()
+	$shock.play()
 	for body in bodies:
 		score += 1
 		$HUD.update_score(score)

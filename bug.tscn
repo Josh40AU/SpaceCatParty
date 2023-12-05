@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dsurco1hgjaay"]
 
 [ext_resource type="Script" path="res://bug.gd" id="1_pkrnr"]
-[ext_resource type="Texture2D" uid="uid://d1rovb58apv74" path="res://assets/art/Bug-walk-1.png" id="2_10hg7"]
-[ext_resource type="Texture2D" uid="uid://ck0snxu0rd67g" path="res://assets/art/Bug-walk-2.png" id="3_v8wol"]
+[ext_resource type="Texture2D" uid="uid://cia1iojy5ao7l" path="res://assets/art/BeetleFrame-1-nb.png" id="2_o0b7p"]
+[ext_resource type="Texture2D" uid="uid://clysp6werhrte" path="res://assets/art/BeetleFrame-2-nb.png" id="3_lvaxi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3f4q1"]
 radius = 38.71
@@ -11,14 +11,14 @@ radius = 38.71
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_10hg7")
+"texture": ExtResource("2_o0b7p")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_v8wol")
+"texture": ExtResource("3_lvaxi")
 }],
 "loop": true,
 "name": &"walk",
-"speed": 3.0
+"speed": 5.0
 }]
 
 [node name="Bug" type="RigidBody2D" groups=["bugs"]]

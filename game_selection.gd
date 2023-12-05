@@ -3,12 +3,24 @@ extends Node
 
 var currentGame
 
-
+var bg_music := AudioStreamPlayer.new()
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
+	# initital sound
+	bg_music.stream = load("res://assets/audio/musicTheme-opening.wav")
+	bg_music.autoplay = true
+	bg_music.finished.connect(_loadMusic)
+	add_child(bg_music)
 	pass # Replace with function body.
 
-
+func _loadMusic():
+	# continual music play
+	remove_child(bg_music)
+	bg_music.stream = load("res://assets/audio/musicTheme-short.wav")
+	bg_music.autoplay = true
+	add_child(bg_music)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

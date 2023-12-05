@@ -1,45 +1,59 @@
-[gd_scene load_steps=6 format=3 uid="uid://bj0yc0ekkm62i"]
+[gd_scene load_steps=9 format=3 uid="uid://bj0yc0ekkm62i"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_rqydf"]
-[ext_resource type="Texture2D" uid="uid://b2w42hcpe6m75" path="res://assets/art/cat-walk-1.png" id="2_bpjr5"]
-[ext_resource type="Texture2D" uid="uid://cm2o14jrhcf67" path="res://assets/art/cat-walk-2.png" id="3_go7jb"]
+[ext_resource type="Texture2D" uid="uid://blv5cjoebt0mj" path="res://assets/art/Front Facing-HalfFlame-nb.png" id="2_etuxw"]
+[ext_resource type="Texture2D" uid="uid://78ugullirqo7" path="res://assets/art/Front Facing-NoFlame-nb.png" id="2_f8h2y"]
+[ext_resource type="Texture2D" uid="uid://dpxprnv3p822f" path="res://assets/art/Front Facing-QuarrterFlame-nb.png" id="3_0japl"]
+[ext_resource type="Texture2D" uid="uid://daju2ivofugss" path="res://assets/art/Front Facing-FullFlame-nb.png" id="3_kal8q"]
+[ext_resource type="AudioStream" uid="uid://0oy6ueosdcpt" path="res://assets/audio/jet-pack.wav" id="5_1opro"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rl0cs"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f8h2y")
+}],
 "loop": true,
-"name": &"up",
-"speed": 5.0
+"name": &"off",
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_bpjr5")
+"texture": ExtResource("3_0japl")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_go7jb")
+"texture": ExtResource("2_etuxw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kal8q")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"on",
 "speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i0qtg"]
 radius = 48.28
-height = 182.69
+height = 199.15
 
 [node name="Player" type="Area2D"]
+position = Vector2(0, 19)
 script = ExtResource("1_rqydf")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_rl0cs")
-animation = &"up"
+animation = &"off"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CapsuleShape2D_i0qtg")
 debug_color = Color(0.65098, 0.482353, 0.517647, 1)
+
+[node name="move_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_1opro")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

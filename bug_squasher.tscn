@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://bug_squasher.gd" id="1_u2k1x"]
 [ext_resource type="PackedScene" uid="uid://dsurco1hgjaay" path="res://bug.tscn" id="2_0fijt"]
 [ext_resource type="PackedScene" uid="uid://dk148vld535qk" path="res://hud.tscn" id="2_2im1j"]
-[ext_resource type="AudioStream" uid="uid://erkxe230foon" path="res://assets/audio/keyboardPress.wav" id="5_dqd35"]
+[ext_resource type="AudioStream" uid="uid://bbwp3jj3yyaul" path="res://assets/audio/shock.wav" id="5_h66oc"]
 
 [sub_resource type="Curve2D" id="Curve2D_awtil"]
 _data = {
@@ -41,8 +41,8 @@ one_shot = true
 
 [node name="HUD" parent="." instance=ExtResource("2_2im1j")]
 
-[node name="KeyboardSoundEffect" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_dqd35")
+[node name="shock" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_h66oc")
 volume_db = 1.0
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
