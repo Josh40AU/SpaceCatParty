@@ -1,17 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://bj0yc0ekkm62i"]
+[gd_scene load_steps=9 format=3 uid="uid://c78rxx0uws7v4"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_rqydf"]
-[ext_resource type="Texture2D" uid="uid://blv5cjoebt0mj" path="res://assets/art/Front Facing-HalfFlame-nb.png" id="2_etuxw"]
-[ext_resource type="Texture2D" uid="uid://78ugullirqo7" path="res://assets/art/Front Facing-NoFlame-nb.png" id="2_f8h2y"]
-[ext_resource type="Texture2D" uid="uid://dpxprnv3p822f" path="res://assets/art/Front Facing-QuarrterFlame-nb.png" id="3_0japl"]
-[ext_resource type="Texture2D" uid="uid://daju2ivofugss" path="res://assets/art/Front Facing-FullFlame-nb.png" id="3_kal8q"]
-[ext_resource type="AudioStream" uid="uid://0oy6ueosdcpt" path="res://assets/audio/jet-pack.wav" id="5_1opro"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_execp"]
+[ext_resource type="Texture2D" uid="uid://78ugullirqo7" path="res://assets/art/Front Facing-NoFlame-nb.png" id="2_0luq0"]
+[ext_resource type="Texture2D" uid="uid://dpxprnv3p822f" path="res://assets/art/Front Facing-QuarrterFlame-nb.png" id="3_b6jd4"]
+[ext_resource type="Texture2D" uid="uid://blv5cjoebt0mj" path="res://assets/art/Front Facing-HalfFlame-nb.png" id="4_6ec5b"]
+[ext_resource type="Texture2D" uid="uid://daju2ivofugss" path="res://assets/art/Front Facing-FullFlame-nb.png" id="5_qx34k"]
+[ext_resource type="AudioStream" uid="uid://0oy6ueosdcpt" path="res://assets/audio/jet-pack.wav" id="6_id5bb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rl0cs"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_f8h2y")
+"texture": ExtResource("2_0luq0")
 }],
 "loop": true,
 "name": &"off",
@@ -19,13 +19,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_0japl")
+"texture": ExtResource("3_b6jd4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_etuxw")
+"texture": ExtResource("4_6ec5b")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_kal8q")
+"texture": ExtResource("5_qx34k")
 }],
 "loop": true,
 "name": &"on",
@@ -38,7 +38,7 @@ height = 199.15
 
 [node name="Player" type="Area2D"]
 position = Vector2(0, 19)
-script = ExtResource("1_rqydf")
+script = ExtResource("1_execp")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -53,7 +53,7 @@ shape = SubResource("CapsuleShape2D_i0qtg")
 debug_color = Color(0.65098, 0.482353, 0.517647, 1)
 
 [node name="move_sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_1opro")
+stream = ExtResource("6_id5bb")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

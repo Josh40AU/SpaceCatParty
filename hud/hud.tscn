@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk148vld535qk"]
+[gd_scene load_steps=2 format=3 uid="uid://dhjmemycsexdb"]
 
-[ext_resource type="Script" path="res://HUD.gd" id="1_5kmoe"]
+[ext_resource type="Script" path="res://hud/HUD.gd" id="1_dqt4t"]
 
 [node name="HUD" type="CanvasLayer"]
-script = ExtResource("1_5kmoe")
+script = ExtResource("1_dqt4t")
 
 [node name="ScoreLabel" type="Label" parent="."]
 anchors_preset = 5

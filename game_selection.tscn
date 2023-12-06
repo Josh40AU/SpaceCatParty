@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://l653tjpjf8fq"]
+[gd_scene load_steps=3 format=3 uid="uid://dpay8i6um16xa"]
 
 [ext_resource type="Script" path="res://game_selection.gd" id="1_he5jr"]
-[ext_resource type="PackedScene" uid="uid://dx41odpxhv77s" path="res://bug_squasher.tscn" id="2_xipxd"]
+[ext_resource type="PackedScene" uid="uid://dx41odpxhv77s" path="res://levels/bug_squasher/bug_squasher.tscn" id="2_p77nj"]
 
 [node name="game_selection" type="Node"]
 script = ExtResource("1_he5jr")
-bug_squasher_scene = ExtResource("2_xipxd")
+bug_squasher_scene = ExtResource("2_p77nj")
 
 [node name="bug_squash_start" type="Button" parent="."]
 offset_left = 385.0

@@ -10,12 +10,14 @@ func _process(delta):
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Player.hide()
 	pass
 	#new_game()
 
 func new_game():
 	get_tree().call_group("bugs", "queue_free")
 	score = 0
+	$Player.show()
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)

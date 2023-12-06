@@ -10,16 +10,25 @@ func _ready():
 	# initital sound
 	bg_music.stream = load("res://assets/audio/musicTheme-opening.wav")
 	bg_music.autoplay = true
+	bg_music.volume_db = -10.0
 	bg_music.finished.connect(_loadMusic)
 	add_child(bg_music)
 	pass # Replace with function body.
 
 func _loadMusic():
 	# continual music play
-	remove_child(bg_music)
+	#remove_child(bg_music)
 	bg_music.stream = load("res://assets/audio/musicTheme-short.wav")
-	bg_music.autoplay = true
-	add_child(bg_music)
+	bg_music.play()
+	bg_music.finished.disconnect(_loadMusic)
+	bg_music.finished.connect(_replayMusic)
+	#print('replay!')
+	#bg_music.volume_db = -10.0
+	#bg_music.autoplay = true
+	#add_child(bg_music)
+	
+func _replayMusic():
+	bg_music.play()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

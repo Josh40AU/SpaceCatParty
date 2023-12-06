@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dx41odpxhv77s"]
+[gd_scene load_steps=8 format=3 uid="uid://dx41odpxhv77s"]
 
-[ext_resource type="PackedScene" uid="uid://bj0yc0ekkm62i" path="res://player.tscn" id="1_csp1f"]
-[ext_resource type="Script" path="res://bug_squasher.gd" id="1_u2k1x"]
-[ext_resource type="PackedScene" uid="uid://dsurco1hgjaay" path="res://bug.tscn" id="2_0fijt"]
-[ext_resource type="PackedScene" uid="uid://dk148vld535qk" path="res://hud.tscn" id="2_2im1j"]
+[ext_resource type="PackedScene" uid="uid://c78rxx0uws7v4" path="res://player/player.tscn" id="1_csp1f"]
+[ext_resource type="Script" path="res://levels/bug_squasher/bug_squasher.gd" id="1_u2k1x"]
+[ext_resource type="PackedScene" uid="uid://dsurco1hgjaay" path="res://bug/bug.tscn" id="2_0fijt"]
+[ext_resource type="PackedScene" uid="uid://dhjmemycsexdb" path="res://hud/hud.tscn" id="2_2im1j"]
 [ext_resource type="AudioStream" uid="uid://bbwp3jj3yyaul" path="res://assets/audio/shock.wav" id="5_h66oc"]
+[ext_resource type="Texture2D" uid="uid://q64g3txdtbs1" path="res://assets/art/background.png" id="6_mlnjk"]
 
 [sub_resource type="Curve2D" id="Curve2D_awtil"]
 _data = {
@@ -15,6 +16,11 @@ point_count = 5
 [node name="BugSquasher" type="Node"]
 script = ExtResource("1_u2k1x")
 mob_scene = ExtResource("2_0fijt")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1156.0
+offset_bottom = 1024.0
+texture = ExtResource("6_mlnjk")
 
 [node name="Player" parent="." instance=ExtResource("1_csp1f")]
 
