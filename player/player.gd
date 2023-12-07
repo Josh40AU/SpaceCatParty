@@ -48,9 +48,8 @@ func _process(delta):
 		$AnimatedSprite2D.play()
 		$AnimatedSprite2D.animation = "on"
 		$AnimatedSprite2D.rotation = velocity.angle() + ( PI / 2)
+		$CollisionShape2D.rotation = $AnimatedSprite2D.rotation
 
-		#$AnimatedSprite2D.flip_v = velocity.y > 0
-		#$AnimatedSprite2D.flip_h = velocity.x < 0
 	else:
 		if($move_sound.playing):
 			$move_sound.stop()
