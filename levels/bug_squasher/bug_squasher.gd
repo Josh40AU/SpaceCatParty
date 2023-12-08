@@ -3,6 +3,7 @@ signal game_complete
 
 @export var mob_scene: PackedScene
 @export var coffee_scene: PackedScene
+@export var business_person_scene: PackedScene
 var score
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -74,7 +75,9 @@ func player_hit(bodies):
 		var mob_type = body.get_mob_type()
 		match mob_type:
 			"Coffee":
-				$Player.power_up("speed")
+				$Player.power_up("IncreaseSpeed")
+			"BusinessPerson":
+				$Player.power_up("DecreaseSpeed")
 			"Bug":
 				score += 1
 				$HUD.update_score(score)
@@ -91,8 +94,12 @@ func _on_hud_end_game():
 
 func _on_power_up_timer_timeout():
 	var random = randi_range(0, 3)
-	if random > 2:
+	if random == 2:
 		var coffee = coffee_scene.instantiate()
 		coffee.position = _get_random_position()
 		add_child(coffee)
+	if random == 3:
+		var business = business_person_scene.instantiate()
+		business.position = _get_random_position()
+		add_child(business)
 	pass # Replace with function body.

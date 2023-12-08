@@ -27,9 +27,12 @@ func _on_body_exited(body):
 	
 func power_up(type: String):
 	match type:
-		"speed":
+		"IncreaseSpeed":
 			increase_speed()
 			create_power_timer(decrease_speed)
+		"DecreaseSpeed":
+			decrease_speed()
+			create_power_timer(increase_speed)
 
 func increase_speed():
 	speed += 200

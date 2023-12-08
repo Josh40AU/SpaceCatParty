@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://du2tkjhx1rkbr"]
+
+[ext_resource type="Texture2D" uid="uid://ctv0rskotrj4b" path="res://assets/art/business-man-sm.png" id="1_sku6f"]
+[ext_resource type="Script" path="res://power_ups/business_person/business_person.gd" id="2_71ad1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iqgkd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_sku6f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1ony"]
+size = Vector2(37, 98)
+
+[node name="business_person" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("2_71ad1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_iqgkd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_p1ony")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="CollisionShape2D" method="_on_timer_timeout"]
