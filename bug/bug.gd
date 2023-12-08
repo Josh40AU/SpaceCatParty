@@ -4,6 +4,7 @@ var changed = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite2D.play('walk')
+	$DirectionTimer.start()
 	
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
@@ -23,11 +24,15 @@ func _change_direction():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var random = randf_range(0, 180)
-	if random > 175 && !changed:
-		_change_direction()
-		changed = true
 	pass
 	
 func get_mob_type():
 	return "Bug"
+
+
+func _on_direction_timer_timeout():
+	var random = randi_range(1, 3)
+	if random > 1 && !changed:
+		_change_direction()
+		changed = true
+	pass

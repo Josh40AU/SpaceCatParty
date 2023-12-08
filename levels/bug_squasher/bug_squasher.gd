@@ -72,10 +72,8 @@ func player_hit(bodies):
 	$shock.play()
 	for body in bodies:
 		var mob_type = body.get_mob_type()
-		print(mob_type)
 		match mob_type:
 			"Coffee":
-				print('coffee')
 				$Player.power_up("speed")
 			"Bug":
 				score += 1

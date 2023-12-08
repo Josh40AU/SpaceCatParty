@@ -26,7 +26,6 @@ func _on_body_exited(body):
 	overlapping_objects.erase(body)
 	
 func power_up(type: String):
-	print("powerChange " + type)
 	match type:
 		"speed":
 			increase_speed()
