@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dx41odpxhv77s"]
+[gd_scene load_steps=9 format=3 uid="uid://dx41odpxhv77s"]
 
 [ext_resource type="PackedScene" uid="uid://c78rxx0uws7v4" path="res://player/player.tscn" id="1_csp1f"]
 [ext_resource type="Script" path="res://levels/bug_squasher/bug_squasher.gd" id="1_u2k1x"]
 [ext_resource type="PackedScene" uid="uid://dhjmemycsexdb" path="res://hud/hud.tscn" id="2_2im1j"]
 [ext_resource type="PackedScene" uid="uid://dsurco1hgjaay" path="res://bug/bug.tscn" id="2_cep62"]
+[ext_resource type="PackedScene" uid="uid://ceqbiyykjk67y" path="res://power_ups/coffee/coffee.tscn" id="3_5sd7s"]
 [ext_resource type="AudioStream" uid="uid://bbwp3jj3yyaul" path="res://assets/audio/shock.wav" id="5_h66oc"]
 [ext_resource type="Texture2D" uid="uid://q64g3txdtbs1" path="res://assets/art/background.png" id="6_mlnjk"]
 
@@ -16,6 +17,7 @@ point_count = 5
 [node name="BugSquasher" type="Node"]
 script = ExtResource("1_u2k1x")
 mob_scene = ExtResource("2_cep62")
+coffee_scene = ExtResource("3_5sd7s")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 1156.0
@@ -51,9 +53,14 @@ one_shot = true
 stream = ExtResource("5_h66oc")
 volume_db = 1.0
 
+[node name="PowerUpTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="BugTimer" to="." method="_on_bug_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]
 [connection signal="end_game" from="HUD" to="." method="_on_hud_end_game"]
 [connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
+[connection signal="timeout" from="PowerUpTimer" to="." method="_on_power_up_timer_timeout"]

@@ -2,11 +2,18 @@ extends Node
 signal game_complete
 
 @export var mob_scene: PackedScene
+@export var coffee_scene: PackedScene
 var score
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
+func _get_random_position() -> Vector2:
+	# max numbers from project settings
+	var x = randi_range(0, 1152)
+	var y = randi_range(0, 648)
+	return Vector2(x, y)
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -64,8 +71,15 @@ func _on_player_hit(bodies):
 func player_hit(bodies):
 	$shock.play()
 	for body in bodies:
-		score += 1
-		$HUD.update_score(score)
+		var mob_type = body.get_mob_type()
+		print(mob_type)
+		match mob_type:
+			"Coffee":
+				print('coffee')
+				$Player.power_up("speed")
+			"Bug":
+				score += 1
+				$HUD.update_score(score)
 		remove_child(body)
 
 
@@ -75,3 +89,12 @@ func _on_hud_start_game():
 
 func _on_hud_end_game():
 	game_complete.emit()
+
+
+func _on_power_up_timer_timeout():
+	var random = randi_range(0, 3)
+	if random > 2:
+		var coffee = coffee_scene.instantiate()
+		coffee.position = _get_random_position()
+		add_child(coffee)
+	pass # Replace with function body.

@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://ceqbiyykjk67y"]
+
+[ext_resource type="Texture2D" uid="uid://qlf6pergpma0" path="res://assets/art/coffeeFrame-1.png" id="1_1e7v3"]
+[ext_resource type="Script" path="res://power_ups/coffee/coffee.gd" id="1_7htxb"]
+[ext_resource type="Texture2D" uid="uid://cd8q1xjc7ja0" path="res://assets/art/coffeeFrame-2.png" id="2_wahxn"]
+[ext_resource type="Texture2D" uid="uid://bbxy1hjgd1cvm" path="res://assets/art/coffeeFrame-3.png" id="3_x0et3"]
+[ext_resource type="Texture2D" uid="uid://drpemlcqppaga" path="res://assets/art/coffeeFrame-4.png" id="4_pc2ue"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0of7e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1e7v3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wahxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x0et3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pc2ue")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x0et3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wahxn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7qcx2"]
+radius = 53.0
+
+[node name="coffee" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_7htxb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0of7e")
+autoplay = "default"
+frame = 3
+frame_progress = 0.735328
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5, 24)
+shape = SubResource("CircleShape2D_7qcx2")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -28,3 +28,6 @@ func _process(delta):
 		_change_direction()
 		changed = true
 	pass
+	
+func get_mob_type():
+	return "Bug"

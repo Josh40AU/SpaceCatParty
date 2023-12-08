@@ -6,6 +6,8 @@ signal hit
 var overlapping_objects = []
 var screen_size
 
+var power_up_timers = []
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,7 +24,35 @@ func _on_body_entered(body):
 	
 func _on_body_exited(body):
 	overlapping_objects.erase(body)
+	
+func power_up(type: String):
+	print("powerChange " + type)
+	match type:
+		"speed":
+			increase_speed()
+			create_power_timer(decrease_speed)
 
+func increase_speed():
+	speed += 200
+	
+func decrease_speed():
+	speed -= 200
+	
+func create_power_timer(del: Callable):
+	var timer := Timer.new()
+	timer.wait_time = 5
+	timer.timeout.connect(del)
+	timer.timeout.connect(_remove_timer)
+	add_child(timer)
+	timer.start()
+	power_up_timers.append(timer)
+
+func _remove_timer():
+	#FIFO
+	var timer = power_up_timers[0]
+	power_up_timers.erase(timer)
+	timer.queue_free()
+	remove_child(timer)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
