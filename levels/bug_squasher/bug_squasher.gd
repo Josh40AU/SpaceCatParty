@@ -5,6 +5,7 @@ signal game_complete
 @export var coffee_scene: PackedScene
 @export var business_person_scene: PackedScene
 var score
+var _game_running = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -29,6 +30,7 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
+	_game_running = true
 
 func _on_start_timer_timeout():
 	$BugTimer.start()
@@ -37,6 +39,7 @@ func _on_start_timer_timeout():
 func _on_end_timer_timeout():
 	$BugTimer.stop()
 	$HUD.show_game_over()
+	_game_running = false
 
 
 func _on_bug_timer_timeout():
@@ -70,17 +73,24 @@ func _on_player_hit(bodies):
 		
 			
 func player_hit(bodies):
-	$shock.play()
 	for body in bodies:
 		var mob_type = body.get_mob_type()
+		# I wanted some of these interactions to be defined
+		# at the mob level, but audio doesn't play there for
+		# some reason
 		match mob_type:
 			"Coffee":
+				$sound_effect.stream = load("res://assets/audio/drink.wav")
+				$sound_effect.play()
+				body.player_interaction()
 				$Player.power_up("IncreaseSpeed")
 			"BusinessPerson":
 				$Player.power_up("DecreaseSpeed")
 			"Bug":
 				score += 1
 				$HUD.update_score(score)
+				$sound_effect.stream = load("res://assets/audio/shock.wav")
+				$sound_effect.play()
 		remove_child(body)
 
 
@@ -93,7 +103,10 @@ func _on_hud_end_game():
 
 
 func _on_power_up_timer_timeout():
+	if $BugTimer.is_stopped():
+		return
 	var random = randi_range(0, 3)
+	print(random)
 	if random == 2:
 		var coffee = coffee_scene.instantiate()
 		coffee.position = _get_random_position()
