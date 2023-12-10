@@ -5,12 +5,6 @@ signal time_expired
 func _ready():
 	$Timer.start()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_timer_timeout():
 	time_expired.emit()
 	queue_free()

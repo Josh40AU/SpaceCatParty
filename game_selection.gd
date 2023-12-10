@@ -13,7 +13,6 @@ func _ready():
 	bg_music.volume_db = -10.0
 	bg_music.finished.connect(_loadMusic)
 	add_child(bg_music)
-	pass
 
 func _loadMusic():
 	# continual music play
@@ -24,10 +23,6 @@ func _loadMusic():
 	
 func _replayMusic():
 	bg_music.play()
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func game_complete():
 	# I think if you don't disconnect here, you'll get a memory leak
