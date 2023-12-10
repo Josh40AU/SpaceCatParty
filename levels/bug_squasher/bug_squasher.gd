@@ -8,10 +8,6 @@ signal game_complete
 var score: int
 var taco_count: int = 0
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 	
 func _get_random_position() -> Vector2:
 	# max numbers from project settings
@@ -22,8 +18,6 @@ func _get_random_position() -> Vector2:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Player.hide()
-	pass
-	#new_game()
 
 func new_game():
 	get_tree().call_group("bugs", "queue_free")
@@ -73,26 +67,36 @@ func _on_player_hit(bodies):
 			
 func player_hit(bodies):
 	for body in bodies:
-		var mob_type = body.get_mob_type()
-		# I wanted some of these interactions to be defined
-		# at the mob level, but audio doesn't play there for
-		# some reason
-		match mob_type:
-			"Coffee":
-				_play_sound_effect("res://assets/audio/drink.wav")
-				$Player.power_up("IncreaseSpeed")
-			"BusinessPerson":
-				_play_sound_effect("res://assets/audio/hang_up.wav")
-				_business_person_bug_spawn(body.position)
-			"Bug":
-				score += 1
-				$HUD.update_score(score)
-				_play_sound_effect("res://assets/audio/shock.wav")
-			"Taco":
-				_play_sound_effect("res://assets/audio/food_crunch.wav")
-				taco_count += 1
-				$HUD.update_taco_count(taco_count)
-		remove_child(body)
+		_handle_player_interaction(body)
+		
+
+func _handle_player_interaction(body):
+	var mob_type = body.get_mob_type()
+	# I wanted some of these interactions to be defined
+	# at the mob level, but audio doesn't play there for
+	# some reason
+	match mob_type:
+		"Coffee":
+			_play_sound_effect("res://assets/audio/drink.wav")
+			$Player.power_up("IncreaseSpeed")
+		"BusinessPerson":
+			_play_sound_effect("res://assets/audio/hang_up.wav")
+			_business_person_bug_spawn(body.position)
+		"Bug":
+			score += 1
+			$HUD.update_score(score)
+			_play_sound_effect("res://assets/audio/shock.wav")
+		"Taco":
+			_handle_taco()
+	remove_child(body)
+	
+func _handle_taco():
+	_play_sound_effect("res://assets/audio/food_crunch.wav")
+	taco_count += 1
+	if taco_count == 5:
+		get_tree().call_group("bugs", "pause_bug")
+		taco_count = 0
+	$HUD.update_taco_count(taco_count)
 
 func _business_person_bug_spawn(location: Vector2):
 	var bug_number = randi_range(3, 8)

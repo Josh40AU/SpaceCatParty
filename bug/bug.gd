@@ -22,9 +22,14 @@ func _change_direction():
 	# bug
 	$AnimatedSprite2D.rotation = direction + ( PI / 2 ) - rotation
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	
+func pause_bug():
+	linear_velocity = Vector2.ZERO
+	var timer = Timer.new()
+	timer.wait_time = 5
+	timer.timeout.connect(_change_direction)
+	add_child(timer)
+	timer.start()
 	
 func get_mob_type():
 	return "Bug"
@@ -35,4 +40,3 @@ func _on_direction_timer_timeout():
 	if random > 1 && !changed:
 		_change_direction()
 		changed = true
-	pass
