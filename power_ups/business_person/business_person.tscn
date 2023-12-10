@@ -1,13 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://du2tkjhx1rkbr"]
+[gd_scene load_steps=9 format=3 uid="uid://du2tkjhx1rkbr"]
 
-[ext_resource type="Texture2D" uid="uid://ctv0rskotrj4b" path="res://assets/art/business-man-sm.png" id="1_sku6f"]
+[ext_resource type="Texture2D" uid="uid://viitrrdc8py" path="res://assets/art/business-man-sm-frame-1.png" id="2_0qskv"]
 [ext_resource type="Script" path="res://power_ups/business_person/business_person.gd" id="2_71ad1"]
+[ext_resource type="Texture2D" uid="uid://dlx1iejqtumtd" path="res://assets/art/business-man-sm-frame-2.png" id="3_hso8g"]
+[ext_resource type="Texture2D" uid="uid://b8y1s52lch57t" path="res://assets/art/business-man-sm-frame-3.png" id="4_cjigx"]
+[ext_resource type="Texture2D" uid="uid://n0d1j7fdmgyl" path="res://assets/art/business-man-sm-frame-4.png" id="5_0ash7"]
+[ext_resource type="Texture2D" uid="uid://dr6h0k6iu67qm" path="res://assets/art/business-man-sm-frame-5.png" id="6_lspxg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_iqgkd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_sku6f")
+"texture": ExtResource("2_0qskv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hso8g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_cjigx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0ash7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_lspxg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0ash7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_cjigx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hso8g")
 }],
 "loop": true,
 "name": &"default",
@@ -24,6 +49,7 @@ script = ExtResource("2_71ad1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_iqgkd")
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
@@ -33,4 +59,4 @@ shape = SubResource("RectangleShape2D_p1ony")
 wait_time = 5.0
 autostart = true
 
-[connection signal="timeout" from="Timer" to="CollisionShape2D" method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
