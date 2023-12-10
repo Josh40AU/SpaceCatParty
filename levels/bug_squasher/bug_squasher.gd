@@ -5,7 +5,7 @@ signal game_complete
 @export var coffee_scene: PackedScene
 @export var business_person_scene: PackedScene
 var score
-var _game_running = false
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -30,7 +30,7 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
-	_game_running = true
+
 
 func _on_start_timer_timeout():
 	$BugTimer.start()
@@ -39,25 +39,22 @@ func _on_start_timer_timeout():
 func _on_end_timer_timeout():
 	$BugTimer.stop()
 	$HUD.show_game_over()
-	_game_running = false
 
 
 func _on_bug_timer_timeout():
+	var mob_spawn_location = get_node("MobPath/MobSpawnLocation")
+	mob_spawn_location.progress_ratio = randf()
+	var position = mob_spawn_location.position
+	var direction = mob_spawn_location.rotation + PI / 2
+	# add some randomness to the direction
+	direction += randf_range(-PI / 4, PI / 4)
+	_spawn_bug(position, direction)
+	
+func _spawn_bug(position: Vector2, direction: float):
 	# Create a new instance of the Mob scene.
 	var mob = mob_scene.instantiate()
 
-	# Choose a random location on Path2D.
-	var mob_spawn_location = get_node("MobPath/MobSpawnLocation")
-	mob_spawn_location.progress_ratio = randf()
-
-	# Set the mob's direction perpendicular to the path direction.
-	var direction = mob_spawn_location.rotation + PI / 2
-
-	# Set the mob's position to a random location.
-	mob.position = mob_spawn_location.position
-
-	# Add some randomness to the direction.
-	direction += randf_range(-PI / 4, PI / 4)
+	mob.position = position
 	mob.rotation = direction + ( PI / 2)
 
 	# Choose the velocity for the mob.
@@ -82,10 +79,11 @@ func player_hit(bodies):
 			"Coffee":
 				$sound_effect.stream = load("res://assets/audio/drink.wav")
 				$sound_effect.play()
-				body.player_interaction()
 				$Player.power_up("IncreaseSpeed")
 			"BusinessPerson":
-				$Player.power_up("DecreaseSpeed")
+				$sound_effect.stream = load("res://assets/audio/hang_up.wav")
+				$sound_effect.play()
+				_business_person_bug_spawn(body.position)
 			"Bug":
 				score += 1
 				$HUD.update_score(score)
@@ -93,6 +91,17 @@ func player_hit(bodies):
 				$sound_effect.play()
 		remove_child(body)
 
+func _business_person_bug_spawn(location: Vector2):
+	var bug_number = randi_range(3, 8)
+	for i in bug_number:
+		var direction = randf_range(0, 2 * PI)
+		var random_position_offset = Vector2(randi_range(5, 10), randi_range(5, 10))
+		_spawn_bug(location + random_position_offset, direction)
+
+func _business_person_missed():
+	$Player.power_up("DecreaseSpeed")
+	$sound_effect.stream = load("res://assets/audio/dial_tone.wav")
+	$sound_effect.play()
 
 func _on_hud_start_game():
 	new_game()
@@ -105,8 +114,7 @@ func _on_hud_end_game():
 func _on_power_up_timer_timeout():
 	if $BugTimer.is_stopped():
 		return
-	var random = randi_range(0, 3)
-	print(random)
+	var random = 3 #randi_range(0, 3)
 	if random == 2:
 		var coffee = coffee_scene.instantiate()
 		coffee.position = _get_random_position()
@@ -115,4 +123,7 @@ func _on_power_up_timer_timeout():
 		var business = business_person_scene.instantiate()
 		business.position = _get_random_position()
 		add_child(business)
+		business.time_expired.connect(_business_person_missed)
+		$sound_effect.stream = load("res://assets/audio/phone_ring.wav")
+		$sound_effect.play()
 	pass # Replace with function body.
