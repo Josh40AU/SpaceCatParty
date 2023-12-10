@@ -4,7 +4,9 @@ signal game_complete
 @export var mob_scene: PackedScene
 @export var coffee_scene: PackedScene
 @export var business_person_scene: PackedScene
-var score
+@export var taco_scene: PackedScene
+var score: int
+var taco_count: int = 0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -77,18 +79,19 @@ func player_hit(bodies):
 		# some reason
 		match mob_type:
 			"Coffee":
-				$sound_effect.stream = load("res://assets/audio/drink.wav")
-				$sound_effect.play()
+				_play_sound_effect("res://assets/audio/drink.wav")
 				$Player.power_up("IncreaseSpeed")
 			"BusinessPerson":
-				$sound_effect.stream = load("res://assets/audio/hang_up.wav")
-				$sound_effect.play()
+				_play_sound_effect("res://assets/audio/hang_up.wav")
 				_business_person_bug_spawn(body.position)
 			"Bug":
 				score += 1
 				$HUD.update_score(score)
-				$sound_effect.stream = load("res://assets/audio/shock.wav")
-				$sound_effect.play()
+				_play_sound_effect("res://assets/audio/shock.wav")
+			"Taco":
+				_play_sound_effect("res://assets/audio/food_crunch.wav")
+				taco_count += 1
+				$HUD.update_taco_count(taco_count)
 		remove_child(body)
 
 func _business_person_bug_spawn(location: Vector2):
@@ -100,12 +103,14 @@ func _business_person_bug_spawn(location: Vector2):
 
 func _business_person_missed():
 	$Player.power_up("DecreaseSpeed")
-	$sound_effect.stream = load("res://assets/audio/dial_tone.wav")
-	$sound_effect.play()
+	_play_sound_effect("res://assets/audio/dial_tone.wav")
 
 func _on_hud_start_game():
 	new_game()
 
+func _play_sound_effect(sound_name: String):
+	$sound_effect.stream = load(sound_name)
+	$sound_effect.play()
 
 func _on_hud_end_game():
 	game_complete.emit()
@@ -114,16 +119,19 @@ func _on_hud_end_game():
 func _on_power_up_timer_timeout():
 	if $BugTimer.is_stopped():
 		return
-	var random = 3 #randi_range(0, 3)
-	if random == 2:
-		var coffee = coffee_scene.instantiate()
-		coffee.position = _get_random_position()
-		add_child(coffee)
-	if random == 3:
-		var business = business_person_scene.instantiate()
-		business.position = _get_random_position()
-		add_child(business)
-		business.time_expired.connect(_business_person_missed)
-		$sound_effect.stream = load("res://assets/audio/phone_ring.wav")
-		$sound_effect.play()
-	pass # Replace with function body.
+	var random = randi_range(0, 3)
+	match random:
+		1:
+			var taco = taco_scene.instantiate()
+			taco.position = _get_random_position()
+			add_child(taco)
+		2:
+			var coffee = coffee_scene.instantiate()
+			coffee.position = _get_random_position()
+			add_child(coffee)
+		3:
+			var business = business_person_scene.instantiate()
+			business.position = _get_random_position()
+			add_child(business)
+			business.time_expired.connect(_business_person_missed)
+			_play_sound_effect("res://assets/audio/phone_ring.wav")

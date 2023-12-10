@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://h16axogci6hr"]
+
+[ext_resource type="Texture2D" uid="uid://bt27tbxn86wmx" path="res://assets/art/taco-frame-1.png" id="1_17ba0"]
+[ext_resource type="Script" path="res://power_ups/taco/taco.gd" id="1_w26bl"]
+[ext_resource type="Texture2D" uid="uid://brctljqa2k0mf" path="res://assets/art/taco-frame-2.png" id="2_6rvea"]
+[ext_resource type="Texture2D" uid="uid://iojf30p4tu6o" path="res://assets/art/taco-frame-3.png" id="3_uyvkx"]
+[ext_resource type="Texture2D" uid="uid://8vw0fox4rae" path="res://assets/art/taco-frame-4.png" id="4_tyia1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v654f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_17ba0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_6rvea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uyvkx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tyia1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uyvkx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_6rvea")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjv04"]
+
+[node name="taco" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_w26bl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_v654f")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jjv04")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

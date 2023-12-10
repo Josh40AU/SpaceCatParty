@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dx41odpxhv77s"]
+[gd_scene load_steps=11 format=3 uid="uid://dx41odpxhv77s"]
 
 [ext_resource type="PackedScene" uid="uid://c78rxx0uws7v4" path="res://player/player.tscn" id="1_csp1f"]
 [ext_resource type="Script" path="res://levels/bug_squasher/bug_squasher.gd" id="1_u2k1x"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://dsurco1hgjaay" path="res://bug/bug.tscn" id="2_cep62"]
 [ext_resource type="PackedScene" uid="uid://ceqbiyykjk67y" path="res://power_ups/coffee/coffee.tscn" id="3_5sd7s"]
 [ext_resource type="PackedScene" uid="uid://du2tkjhx1rkbr" path="res://power_ups/business_person/business_person.tscn" id="4_2upp3"]
+[ext_resource type="PackedScene" uid="uid://h16axogci6hr" path="res://power_ups/taco/taco.tscn" id="5_1wfpi"]
 [ext_resource type="Texture2D" uid="uid://q64g3txdtbs1" path="res://assets/art/background.png" id="6_mlnjk"]
+[ext_resource type="AudioStream" uid="uid://by5xiaa8in5aa" path="res://assets/audio/food_crunch.wav" id="9_b7od8"]
 
 [sub_resource type="Curve2D" id="Curve2D_awtil"]
 _data = {
@@ -19,6 +21,7 @@ script = ExtResource("1_u2k1x")
 mob_scene = ExtResource("2_cep62")
 coffee_scene = ExtResource("3_5sd7s")
 business_person_scene = ExtResource("4_2upp3")
+taco_scene = ExtResource("5_1wfpi")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 1156.0
@@ -45,7 +48,7 @@ position = Vector2(-1, -2)
 rotation = 0.000866551
 
 [node name="EndTimer" type="Timer" parent="."]
-wait_time = 12.0
+wait_time = 45.0
 one_shot = true
 
 [node name="HUD" parent="." instance=ExtResource("2_2im1j")]
@@ -56,6 +59,9 @@ volume_db = 1.0
 [node name="PowerUpTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_b7od8")
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="BugTimer" to="." method="_on_bug_timer_timeout"]

@@ -15,4 +15,4 @@ func _on_timer_timeout():
 	queue_free()
 	
 func get_mob_type():
-	return "Coffee"
+	return "Taco"

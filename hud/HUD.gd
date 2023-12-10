@@ -18,8 +18,11 @@ func show_game_over():
 	$StartButton.show()
 	$EndButton.show()
 	
-func update_score(score):
+func update_score(score: int):
 	$ScoreLabel.text = str(score)
+	
+func update_taco_count(count: int):
+	$TacoCountLabel.text = "x" + str(count)
 	
 
 
