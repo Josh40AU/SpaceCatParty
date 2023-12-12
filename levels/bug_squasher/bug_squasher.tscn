@@ -48,7 +48,7 @@ position = Vector2(-1, -2)
 rotation = 0.000866551
 
 [node name="EndTimer" type="Timer" parent="."]
-wait_time = 10.257
+wait_time = 30.0
 one_shot = true
 
 [node name="HUD" parent="." instance=ExtResource("2_2im1j")]

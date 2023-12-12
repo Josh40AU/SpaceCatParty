@@ -9,6 +9,7 @@ var score: int
 var taco_count: int = 0
 var show_instructions: bool
 var level = -1
+var required_spawn: int = -1
 
 	
 func _get_random_position() -> Vector2:
@@ -27,11 +28,12 @@ func continue_game():
 	if level == 0: 
 		new_game()
 		return
+	
 	if level == 4: 
 		$HUD.show_game_over()
 		level = -1
 		return
-	
+	required_spawn = level
 	new_level()
 
 func new_level():
@@ -169,20 +171,20 @@ func _on_power_up_timer_timeout():
 	if $BugTimer.is_stopped():
 		return
 	var random = randi_range(0, 3)
+	if required_spawn > 0:
+		random = required_spawn
 	if random == 1 and level > 0:
 		var taco = taco_scene.instantiate()
 		taco.position = _get_random_position()
 		add_child(taco)
-		return
 	if random == 2 and level > 1:
 		var coffee = coffee_scene.instantiate()
 		coffee.position = _get_random_position()
 		add_child(coffee)
-		return
 	if random == 3 and level > 2:
 		var business = business_person_scene.instantiate()
 		business.position = _get_random_position()
 		add_child(business)
 		business.time_expired.connect(_business_person_missed)
 		_play_sound_effect("res://assets/audio/phone_ring.wav")
-		return
+	required_spawn = -1
