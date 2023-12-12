@@ -7,6 +7,8 @@ signal game_complete
 @export var taco_scene: PackedScene
 var score: int
 var taco_count: int = 0
+var show_instructions: bool
+var level = -1
 
 	
 func _get_random_position() -> Vector2:
@@ -18,6 +20,23 @@ func _get_random_position() -> Vector2:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Player.hide()
+	
+func continue_game():
+	$Tutorial.hide()
+	level += 1
+	if level == 0: 
+		new_game()
+		return
+	if level == 4: 
+		$HUD.show_game_over()
+		level = -1
+		return
+	
+	new_level()
+
+func new_level():
+	$BugTimer.start()
+	$EndTimer.start()
 
 func new_game():
 	get_tree().call_group("bugs", "queue_free")
@@ -26,7 +45,7 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.update_score(score)
-
+	
 
 func _on_start_timer_timeout():
 	$BugTimer.start()
@@ -34,8 +53,33 @@ func _on_start_timer_timeout():
 
 func _on_end_timer_timeout():
 	$BugTimer.stop()
-	$HUD.show_game_over()
+	print('timer quit' + str(show_instructions))
+	if show_instructions:
+		_show_level_instructions()
+		return
+	continue_game()
 
+func _show_level_instructions():
+	if level == -1:
+		$Tutorial.show_message("You have inherited a space base absolutely riddled with bugs! Use WASD to navigate around and spacebar to zap them. Get rid of as many as you can!", "res://assets/art/BeetleFrame-1-nb.png")
+	if level == 0:
+		$Tutorial.show_message("Space Tacos are a special item that randomly appear. If you collect 5 of them, all the bugs on screen will freeze for 5 seconds!", "res://assets/art/taco-frame-1.png")
+	if level == 1:
+		$Tutorial.show_message("Coffee makes you a more effective bug hunter. Collect it to get a speed boost!", "res://assets/art/coffeeFrame-1.png")
+	if level == 2:
+		$Tutorial.show_message("Clients are tricky. They'll ring you randomly, and if you ignore them you'll end up slowing down, but if you answer, they find a lot of bugs!", "res://assets/art/business-man-sm-frame-1.png")
+	if level == 3:
+		continue_game()
+		return
+	$Tutorial.show()
+
+func _on_hud_start_game(instructions: bool):
+	print(instructions)
+	show_instructions = instructions
+	if show_instructions: 
+		_show_level_instructions()
+		return
+	continue_game()
 
 func _on_bug_timer_timeout():
 	var mob_spawn_location = get_node("MobPath/MobSpawnLocation")
@@ -109,12 +153,13 @@ func _business_person_missed():
 	$Player.power_up("DecreaseSpeed")
 	_play_sound_effect("res://assets/audio/dial_tone.wav")
 
-func _on_hud_start_game():
-	new_game()
-
 func _play_sound_effect(sound_name: String):
-	$sound_effect.stream = load(sound_name)
-	$sound_effect.play()
+	var sound_effect = AudioStreamPlayer.new()
+	sound_effect.stream = load(sound_name)
+	add_child(sound_effect)
+	sound_effect.play()
+	await sound_effect.finished
+	remove_child(sound_effect)
 
 func _on_hud_end_game():
 	game_complete.emit()
@@ -124,18 +169,20 @@ func _on_power_up_timer_timeout():
 	if $BugTimer.is_stopped():
 		return
 	var random = randi_range(0, 3)
-	match random:
-		1:
-			var taco = taco_scene.instantiate()
-			taco.position = _get_random_position()
-			add_child(taco)
-		2:
-			var coffee = coffee_scene.instantiate()
-			coffee.position = _get_random_position()
-			add_child(coffee)
-		3:
-			var business = business_person_scene.instantiate()
-			business.position = _get_random_position()
-			add_child(business)
-			business.time_expired.connect(_business_person_missed)
-			_play_sound_effect("res://assets/audio/phone_ring.wav")
+	if random == 1 and level > 0:
+		var taco = taco_scene.instantiate()
+		taco.position = _get_random_position()
+		add_child(taco)
+		return
+	if random == 2 and level > 1:
+		var coffee = coffee_scene.instantiate()
+		coffee.position = _get_random_position()
+		add_child(coffee)
+		return
+	if random == 3 and level > 2:
+		var business = business_person_scene.instantiate()
+		business.position = _get_random_position()
+		add_child(business)
+		business.time_expired.connect(_business_person_missed)
+		_play_sound_effect("res://assets/audio/phone_ring.wav")
+		return

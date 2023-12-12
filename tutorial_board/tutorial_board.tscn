@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://djk2iecid2r82"]
+
+[ext_resource type="Texture2D" uid="uid://kq27wx2xof4q" path="res://assets/art/MissionBoard.png" id="1_c8adx"]
+[ext_resource type="Script" path="res://tutorial_board/tutorial_board.gd" id="1_smn4h"]
+[ext_resource type="Texture2D" uid="uid://cia1iojy5ao7l" path="res://assets/art/BeetleFrame-1-nb.png" id="2_fwdgh"]
+
+[node name="tutorial_board" type="CanvasLayer"]
+script = ExtResource("1_smn4h")
+
+[node name="MissionBoard" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_c8adx")
+
+[node name="MobSprite" type="Sprite2D" parent="."]
+position = Vector2(233, 357)
+scale = Vector2(2, 2)
+texture = ExtResource("2_fwdgh")
+
+[node name="InstructionLabel" type="Label" parent="."]
+offset_left = 434.0
+offset_top = 225.0
+offset_right = 1014.0
+offset_bottom = 450.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "You have inherited a space base absolutely riddled with bugs! Use WASD to navigate around and spacebar to zap them. Get rid of as many as you can!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ContinueButton" type="Button" parent="."]
+offset_left = 415.0
+offset_top = 456.0
+offset_right = 706.0
+offset_bottom = 552.0
+theme_override_font_sizes/font_size = 64
+text = "Continue"
+
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]

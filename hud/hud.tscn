@@ -15,7 +15,7 @@ offset_right = 20.0
 offset_bottom = 91.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 64
-text = "0"
+text = "Score: 0"
 horizontal_alignment = 1
 
 [node name="Message" type="Label" parent="."]
@@ -24,24 +24,25 @@ offset_top = 125.0
 offset_right = 969.0
 offset_bottom = 307.0
 theme_override_font_sizes/font_size = 64
-text = "Hit the Bugs with 'Space'
-To Clear them out!"
+text = "BUG SQUASHER!"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="StartButton" type="Button" parent="."]
-offset_left = 493.0
-offset_top = 345.0
-offset_right = 651.0
-offset_bottom = 441.0
+offset_left = 217.0
+offset_top = 491.0
+offset_right = 901.0
+offset_bottom = 587.0
 theme_override_font_sizes/font_size = 64
-text = "Start"
+text = "Start Without Tutorial"
 
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
 [node name="EndButton" type="Button" parent="."]
+visible = false
 offset_left = 420.0
 offset_top = 484.0
 offset_right = 743.0
@@ -57,11 +58,20 @@ offset_bottom = 673.0
 theme_override_font_sizes/font_size = 50
 text = "x0"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Taco" type="Sprite2D" parent="."]
 position = Vector2(36, 625)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ulbbx")
 
+[node name="TutorialButton" type="Button" parent="."]
+offset_left = 478.0
+offset_top = 349.0
+offset_right = 636.0
+offset_bottom = 445.0
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
 [connection signal="pressed" from="EndButton" to="." method="_on_end_button_pressed"]
+[connection signal="pressed" from="TutorialButton" to="." method="_start_with_tutorial"]
