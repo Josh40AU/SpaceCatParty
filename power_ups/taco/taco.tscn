@@ -33,6 +33,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjv04"]
+size = Vector2(165.534, 71.646)
 
 [node name="taco" type="RigidBody2D"]
 collision_mask = 0
@@ -44,6 +45,8 @@ sprite_frames = SubResource("SpriteFrames_v654f")
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.961256, -0.671577)
+scale = Vector2(0.666667, 1.15562)
 shape = SubResource("RectangleShape2D_jjv04")
 
 [node name="Timer" type="Timer" parent="."]
