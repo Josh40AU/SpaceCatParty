@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhjmemycsexdb"]
+[gd_scene load_steps=4 format=3 uid="uid://dhjmemycsexdb"]
 
 [ext_resource type="Script" path="res://hud/HUD.gd" id="1_dqt4t"]
 [ext_resource type="Texture2D" uid="uid://bt27tbxn86wmx" path="res://assets/art/taco-frame-1.png" id="2_ulbbx"]
+[ext_resource type="FontFile" uid="uid://3gx0n31uvrdx" path="res://assets/fonts/joystix/joystix monospace.otf" id="2_xr73i"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_dqt4t")
@@ -10,19 +11,22 @@ script = ExtResource("1_dqt4t")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 91.0
+offset_left = -194.0
+offset_top = 3.23373
+offset_right = 230.0
+offset_bottom = 94.2337
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_xr73i")
 theme_override_font_sizes/font_size = 64
 text = "Score: 0"
 horizontal_alignment = 1
 
 [node name="Message" type="Label" parent="."]
-offset_left = 208.0
-offset_top = 125.0
-offset_right = 969.0
-offset_bottom = 307.0
+offset_left = 206.052
+offset_top = 131.467
+offset_right = 967.052
+offset_bottom = 313.467
+theme_override_fonts/font = ExtResource("2_xr73i")
 theme_override_font_sizes/font_size = 64
 text = "BUG SQUASHER!"
 horizontal_alignment = 1
@@ -30,11 +34,13 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="StartButton" type="Button" parent="."]
-offset_left = 217.0
-offset_top = 491.0
-offset_right = 901.0
-offset_bottom = 587.0
-theme_override_font_sizes/font_size = 64
+offset_left = 140.234
+offset_top = 440.0
+offset_right = 1065.23
+offset_bottom = 536.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_xr73i")
+theme_override_font_sizes/font_size = 51
 text = "Start Without Tutorial"
 
 [node name="MessageTimer" type="Timer" parent="."]
@@ -47,6 +53,7 @@ offset_left = 420.0
 offset_top = 484.0
 offset_right = 743.0
 offset_bottom = 580.0
+theme_override_fonts/font = ExtResource("2_xr73i")
 theme_override_font_sizes/font_size = 64
 text = "End Game"
 
@@ -55,6 +62,7 @@ offset_left = 81.0
 offset_top = 589.0
 offset_right = 233.0
 offset_bottom = 673.0
+theme_override_fonts/font = ExtResource("2_xr73i")
 theme_override_font_sizes/font_size = 50
 text = "x0"
 
@@ -64,10 +72,12 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ulbbx")
 
 [node name="TutorialButton" type="Button" parent="."]
-offset_left = 478.0
-offset_top = 349.0
-offset_right = 636.0
-offset_bottom = 445.0
+offset_left = 420.0
+offset_top = 311.312
+offset_right = 684.0
+offset_bottom = 407.312
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_xr73i")
 theme_override_font_sizes/font_size = 64
 text = "Start"
 

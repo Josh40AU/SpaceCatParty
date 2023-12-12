@@ -1,17 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpay8i6um16xa"]
+[gd_scene load_steps=4 format=3 uid="uid://dpay8i6um16xa"]
 
 [ext_resource type="Script" path="res://game_selection.gd" id="1_he5jr"]
 [ext_resource type="PackedScene" uid="uid://dx41odpxhv77s" path="res://levels/bug_squasher/bug_squasher.tscn" id="2_p77nj"]
+[ext_resource type="FontFile" uid="uid://3gx0n31uvrdx" path="res://assets/fonts/joystix/joystix monospace.otf" id="3_2e3oa"]
 
 [node name="game_selection" type="Node"]
 script = ExtResource("1_he5jr")
 bug_squasher_scene = ExtResource("2_p77nj")
 
 [node name="bug_squash_start" type="Button" parent="."]
-offset_left = 385.0
-offset_top = 300.0
-offset_right = 819.0
-offset_bottom = 396.0
+offset_left = 253.0
+offset_top = 285.0
+offset_right = 897.0
+offset_bottom = 381.0
+theme_override_fonts/font = ExtResource("3_2e3oa")
 theme_override_font_sizes/font_size = 64
 text = "Bug Squasher"
 
