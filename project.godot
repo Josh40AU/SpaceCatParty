@@ -13,7 +13,8 @@ config_version=5
 config/name="SpaceCatParty"
 run/main_scene="res://game_selection.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://assets/icon/icon.png"
+config/windows_native_icon="res://assets/icon/icon.ico"
 
 [display]
 
